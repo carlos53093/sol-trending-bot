@@ -6,8 +6,10 @@ const heliusWebHookId = process.env.HELIUS_WEBHOOK_ID
 const ngrokAuthToken = process.env.NGROK_AUTH_TOKEN
 const botToken = process.env.BOT_TOKEN
 const IN_PRODUCTION = process.env.PRODUCTION == '1' ? true : false
+const RPC_ENDPOINT = process.env.RPC_ENDPOINT
 if (!ngrokAuthToken) throw "ERROR: ngrok auth token not Found"
 if (!botToken) throw "ERROR: Bot token not found"
+if (!RPC_ENDPOINT) throw "Err: no rpc url"
 
 export const logo = "https://i.imgur.com/BG3LHXi.mp4"
 
@@ -22,4 +24,5 @@ export const ENV = {
     heliusWebHookId,
     ngrokAuthToken,
     botToken,
+    RPC_ENDPOINT,
 }

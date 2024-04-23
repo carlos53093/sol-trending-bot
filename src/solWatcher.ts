@@ -1,18 +1,6 @@
-import { web3 } from "@project-serum/anchor";
-import * as splToken from "@solana/spl-token";
-import ngrok from '@ngrok/ngrok';
-import express, { Request, Response } from 'express';
-import { RayParsedTxInfo } from "./types/rayTxInfoType";
-import fs from 'fs'
-import { SolTransferTxInfo } from "./types/common";
 import { bot } from "./bot";
-import { getPubkeyFromMsg, getTxLink, sleep } from "./utils";
-import { getMultipleAccountsAndContext } from "@project-serum/anchor/dist/cjs/utils/rpc";
-import { SwapAmounts } from "./db";
 import { Connection, PublicKey } from '@solana/web3.js'
-import { PoolInfoLayout, SqrtPriceMath } from '@raydium-io/raydium-sdk'
-import BN from 'bn.js'
-import { logo } from './constants'
+import { logo, ENV } from './constants'
 
 const log = console.log;
 const todo: any = 1;
@@ -23,7 +11,6 @@ const USDC = '6JF4vLGZowBYdhJENmm3Wy9RYFgAn5xpBtCf91gcDc9A'
 let tgGroupId = -4167748907
 
 export class WatcherBot {
-    private webhookURL?: string
     private ngrokAuthToken: string
     private connection: Connection
 
@@ -31,7 +18,7 @@ export class WatcherBot {
         ngrokAuthToken: string,
     }) {
         this.ngrokAuthToken = config.ngrokAuthToken
-        this.connection = new Connection("https://cosetta-6fo3hv-fast-mainnet.helius-rpc.com/")
+        this.connection = new Connection(ENV.RPC_ENDPOINT)
     }
 
     async start() {
@@ -76,7 +63,7 @@ export class WatcherBot {
                             const deltaB = Math.round((assetBBalance.value.uiAmount - oldB.value.uiAmount) * 100) / 100
                             if (deltaA <= 0) return
                             let text = "<a>$OVSO</a> Buy!" + `\n` +
-                                `🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ \n\n` +
+                                `⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰\n\n` +
                                 `🔀 Spent <b>$${Math.abs(deltaA)}</b>  \n` +
                                 `🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
                                 `👤 Buyer / <a href="https://solscan.io/tx/${logs.signature}">TX</a> \n` +
