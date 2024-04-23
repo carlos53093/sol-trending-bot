@@ -10,7 +10,7 @@ import { getPubkeyFromMsg, getTxLink, sleep } from "./utils";
 import { getMultipleAccountsAndContext } from "@project-serum/anchor/dist/cjs/utils/rpc";
 import { SwapAmounts } from "./db";
 import { Connection, PublicKey } from '@solana/web3.js'
-import { PoolInfoLayout } from '@raydium-io/raydium-sdk'
+import { PoolInfoLayout, SqrtPriceMath } from '@raydium-io/raydium-sdk'
 import BN from 'bn.js'
 import { logo } from './constants'
 
@@ -76,10 +76,11 @@ export class WatcherBot {
                             const deltaB = Math.round((assetBBalance.value.uiAmount - oldB.value.uiAmount) * 100) / 100
                             if (deltaA <= 0) return
                             let text = "<a>$OVSO</a> Buy!" + `\n` +
-                                `⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰\n\n` +
+                                `🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ 🟥 ◻️ \n\n` +
                                 `🔀 Spent <b>$${Math.abs(deltaA)}</b>` +
                                 `🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
                                 `👤 Buyer / <a href="https://solscan.io/tx/${logs.signature}">TX</a> \n` +
+                                `🏷 Price <b>${Math.round(assetABalance.value.uiAmount/assetBBalance.value.uiAmount * 1000000)/1000000}</b> \n` +
                                 `💸 Market Cap $32,937,485` +
                                 `\n\n` +
                                 `<a href="https://www.dextools.io/app/en/solana/pair-explorer/73r4FQ3N7Ghm7Sra6c57NyWxnx8sPcnGHZC3Gamyywco">DexT</a> | <a hre="https://www.ovso.io/">Website</a> | <a href="https://beta.raydium.io/swap/?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=6TL1yMhrwoKNGW173bpyaxUyyJhrt7AVhV2EyLnqzDNv">Buy</a>`
