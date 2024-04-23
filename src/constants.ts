@@ -9,7 +9,7 @@ const IN_PRODUCTION = process.env.PRODUCTION == '1' ? true : false
 if (!ngrokAuthToken) throw "ERROR: ngrok auth token not Found"
 if (!botToken) throw "ERROR: Bot token not found"
 
-export const logo = "https://imgur.com/whwAG00"
+export const logo = "https://imgur.com/BG3LHXi"
 
 
 const mainnetRcpUrl = "https://api.mainnet-beta.solana.com"
