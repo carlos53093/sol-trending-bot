@@ -8,7 +8,7 @@ const poolAddress = '73r4FQ3N7Ghm7Sra6c57NyWxnx8sPcnGHZC3Gamyywco';
 const OLAF = 'ASM4Xor9H8S7XURxFZ6xgcBNhD4f8HiqtsRoJReA7n2j'
 const USDC = '6JF4vLGZowBYdhJENmm3Wy9RYFgAn5xpBtCf91gcDc9A'
 // let tgGroupId = 7168334024
-let tgGroupId = -4167748907
+let tgGroupId = -1002000590411
 
 export class WatcherBot {
     private ngrokAuthToken: string
@@ -22,6 +22,7 @@ export class WatcherBot {
     }
 
     async start() {
+
         try {
             let assetABalance: any;
             let assetBBalance: any;
@@ -43,6 +44,9 @@ export class WatcherBot {
 
             bot.catch((e) => console.error(e));
             bot.start();
+            // bot.command('start', (ctx) => {
+            //     console.log("------------------", ctx.chat.id)
+            // })
             const subscriptionId = this.connection.onLogs(
                 new PublicKey(poolAddress),
                 async (logs, ctx) => {
@@ -67,13 +71,13 @@ export class WatcherBot {
                                 for (let i = 0; i < deltaA; i = i + 5) {
                                     text =  text + ((i % 2) === 0 ? "💰" : "⚡️")
                                 }
-                                text = text + `🔀 Spent <b>$${Math.abs(deltaA)}</b>  \n` +
-                                `\n\n🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
+                                text = text + `\n\n🔀 Spent <b>$${Math.abs(deltaA)}</b>  \n` +
+                                `🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
                                 `👤 Buyer / <a href="https://solscan.io/tx/${logs.signature}">TX</a> \n` +
                                 `🏷 Price <b>$${Math.round(assetABalance.value.uiAmount/assetBBalance.value.uiAmount * 1000000)/1000000}</b> \n` +
                                 `💸 Market Cap $32,937,485` +
                                 `\n\n` +
-                                `<a href="https://www.dextools.io/app/en/solana/pair-explorer/73r4FQ3N7Ghm7Sra6c57NyWxnx8sPcnGHZC3Gamyywco">DexT</a> | <a hre="https://www.ovso.io/">Website</a> | <a href="https://beta.raydium.io/swap/?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=6TL1yMhrwoKNGW173bpyaxUyyJhrt7AVhV2EyLnqzDNv">Buy</a>`
+                                `<a href="https://www.dextools.io/app/en/solana/pair-explorer/73r4FQ3N7Ghm7Sra6c57NyWxnx8sPcnGHZC3Gamyywco">DexT</a> | <a href="https://www.ovso.io/">Website</a> | <a href="https://beta.raydium.io/swap/?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=6TL1yMhrwoKNGW173bpyaxUyyJhrt7AVhV2EyLnqzDNv">Buy</a>`
                             
                             bot.api.sendVideo(tgGroupId, logo, {
                                 caption: text,
