@@ -75,7 +75,7 @@ export class WatcherBot {
                                 `🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
                                 `👤 Buyer / <a href="https://solscan.io/tx/${logs.signature}">TX</a> \n` +
                                 `🏷 Price <b>$${Math.round(assetABalance.value.uiAmount/assetBBalance.value.uiAmount * 1000000)/1000000}</b> \n` +
-                                `💸 Market Cap $32,937,485` +
+                                // `💸 Market Cap $32,937,485` +
                                 `\n\n` +
                                 `<a href="https://www.dextools.io/app/en/solana/pair-explorer/73r4FQ3N7Ghm7Sra6c57NyWxnx8sPcnGHZC3Gamyywco">DexT</a> | <a href="https://www.ovso.io/">Website</a> | <a href="https://beta.raydium.io/swap/?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=6TL1yMhrwoKNGW173bpyaxUyyJhrt7AVhV2EyLnqzDNv">Buy</a>`
                             
