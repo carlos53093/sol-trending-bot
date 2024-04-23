@@ -62,10 +62,13 @@ export class WatcherBot {
                             const deltaA = Math.round((assetABalance.value.uiAmount - oldA.value.uiAmount) * 100) / 100
                             const deltaB = Math.round((assetBBalance.value.uiAmount - oldB.value.uiAmount) * 100) / 100
                             if (deltaA <= 0) return
-                            let text = "<a>$OVSO</a> Buy!" + `\n` +
-                                `⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰\n\n` +
-                                `🔀 Spent <b>$${Math.abs(deltaA)}</b>  \n` +
-                                `🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
+                            let text = "<b><a>$OVSO</a> Buy!</b>" + `\n` +
+                                `💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️💰⚡️`
+                                for (let i = 0; i < deltaA; i = i + 5) {
+                                    text =  text + ((i % 2) === 0 ? "💰" : "⚡️")
+                                }
+                                text = text + `🔀 Spent <b>$${Math.abs(deltaA)}</b>  \n` +
+                                `\n\n🔀 Got <b>${Math.abs(deltaB)} OSVO</b>  \n` +
                                 `👤 Buyer / <a href="https://solscan.io/tx/${logs.signature}">TX</a> \n` +
                                 `🏷 Price <b>$${Math.round(assetABalance.value.uiAmount/assetBBalance.value.uiAmount * 1000000)/1000000}</b> \n` +
                                 `💸 Market Cap $32,937,485` +
